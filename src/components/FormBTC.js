@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import './FormBTC.css';
+import { MOCKED_USD_RESPONSE, AVAILABLE_CURRENCIES_LIST } from './models/Utils';
 
-
-const  FormBTC = () => {
+const  FormBTC = (props) => {
+  console.log('FormBTC props', props)
   const [enteredAmount, setEnteredAmount] = useState('');
   const [enteredAmountTouched, setEnteredAmountTouched] = useState(false);
 
@@ -12,6 +14,7 @@ const  FormBTC = () => {
   
   const amountInputChangeHandler = event => {
     setEnteredAmount(event.target.value);
+    props.onAmountChange(event.target.value);
   }
 
   const amountInputBlurHandler = event => {
