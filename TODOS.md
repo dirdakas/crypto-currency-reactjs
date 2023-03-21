@@ -4,6 +4,5 @@
   - Update amount equivalents automatically every 1min + after submit
   - BTC input field must contain only numeric values and show correct errors
   - Dynamic 0-3 fields that will show equivalents of the amount (USD/EUR/GBP)
-  - Currency fields can be removed (X / Remove button)
   - Dropdown menu to add missing (removed) currency field
   - Loader would be nice

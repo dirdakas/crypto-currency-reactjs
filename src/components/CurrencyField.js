@@ -47,14 +47,24 @@ function CurrencyField(params) {
     }).format(params.amount / data?.last).toString();
   }
 
+  function removeCurrency() {
+    console.log('remove this currency::', params);
+    params.onRemoveCurrency(params.currency, false);
+  }
+
   return (
-    <div className='currency-field'>
-      <div className='calculation'>
-        {params.amount} BTC =  {formatValue()} {params.currency}
+    <div className='currency-field-wrapper'>
+      <div className='currency-field'>
+        <div className='calculation'>
+          {params.amount} BTC =  {formatValue()} {params.currency}
+        </div>
+        <div className='one-to-one'>
+          {data?.friendlyLast}
+        </div>
       </div>
-      <div className='one-to-one'>
-        {data?.friendlyLast}
-      </div>
+      <button className='remove-button' onClick={removeCurrency}>
+        Remove
+      </button>
     </div>
   );
 }

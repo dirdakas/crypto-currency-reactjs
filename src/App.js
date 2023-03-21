@@ -13,10 +13,23 @@ function App() {
     setAmountBTC(amount ? amount : 0);
   };
 
+  const currenciesHandler = (item, isAdd) => {
+    console.log('currenciesHandler', item, 'isAdd ? ', isAdd);
+    if (isAdd) {
+      setActiveCurrencies([...activeCurrencies, item]);
+    } else {
+      setActiveCurrencies([...activeCurrencies.filter(el => el !== item)]);
+    }
+  }
+
   return (
     <div className="app">
       <FormBTC onAmountChange={amountHandler}/>
-      { activeCurrencies.map(currency => <CurrencyField currency={currency} amount={amountBTC} />) }
+      { activeCurrencies
+        .map(currency =>
+          <CurrencyField currency={currency} amount={amountBTC} onRemoveCurrency={currenciesHandler} />
+        )
+      }
     </div>
   );
 }
