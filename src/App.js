@@ -1,7 +1,9 @@
+import FormBTC from './components/FormBTC';
+
 function App() {
   return (
-    <div className="App">
-      Init app
+    <div className="app">
+      <FormBTC></FormBTC>
     </div>
   );
 }
