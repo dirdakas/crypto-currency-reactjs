@@ -1,4 +1,5 @@
 # TODO's :
-  - Add http request for data fetch on submit (api: https://spectrocoin.com/scapi/ticker/BTC/EUR)
+  - fix issue with http request for CORS + issue with response from API
   - Loader would be nice
   - Fix issue with multiple rendering of the listed items and logic inside of it
+  - Fix issue on app start
