@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Simple demo reactjs project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -23,3 +23,9 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+# TODO's :
+  - fix issue with http request for CORS + issue with response from API
+  - Loader would be nice
+  - Fix issue with multiple rendering of the listed items and logic inside of it
+  - Fix issue on app start
