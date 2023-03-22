@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './CurrencyField.css';
 import {
@@ -14,11 +14,26 @@ function CurrencyField(params) {
   const [data, setData] = useState();
   var isInit = false;
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      requestData();
+    }, 60000);
+    return () => clearInterval(interval);
+  });
+
   if (!isInit && (params.isActiveRequest || !data)) {
     isInit = true;
+    requestData();
+  } else if (isInit && params.isActiveRequest) {
+    requestData();
+  }
+
+  function requestData() {
     // fetch(`https://spectrocoin.com/scapi/ticker/BTC/${params.currency}`, {
     //   mode: 'no-cors',
     // })
+    params.onRequestStarted(params.currency);
+
     fetch(`fake`)
     .then(response => {
       return getMockedResponse(params.currency);

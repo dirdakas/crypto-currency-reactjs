@@ -34,6 +34,16 @@ function App() {
     setRequests((prevState) => [...prevState].filter(req => req !== currency));
   }
 
+  const addActiveRequestHandler = (currency) => {
+    setRequests((prevState) => {
+      if (prevState.find(el => el === currency)) {
+        return prevState;
+      } else {
+        return [...prevState, currency];
+      }
+    });
+  }
+
   function isActiveRequest(currency) {
     return !!requests.find(el => el === currency);
   }
@@ -52,6 +62,7 @@ function App() {
             amount={amountBTC}
             isActiveRequest={isActiveRequest(curr)}
             onRequestFinished={activeRequestsHandler}
+            onRequestStarted={addActiveRequestHandler}
             onRemoveCurrency={currencyRemoveHandler} />
         )
       }
