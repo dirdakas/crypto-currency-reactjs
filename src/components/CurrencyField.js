@@ -51,7 +51,6 @@ function CurrencyField(params) {
   }
 
   function formatValue() {
-    console.log('params', params, 'data', data)
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: params.currency
@@ -59,8 +58,7 @@ function CurrencyField(params) {
   }
 
   function removeCurrency() {
-    console.log('remove this currency::', params);
-    params.onRemoveCurrency(params.currency, false);
+    params.onRemoveCurrency(params.currency);
   }
 
   return (

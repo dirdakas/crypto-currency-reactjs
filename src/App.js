@@ -3,6 +3,7 @@ import { useState } from 'react';
 import FormBTC from './components/FormBTC';
 import CurrencyField from './components/CurrencyField';
 import { AVAILABLE_CURRENCIES_LIST } from './components/models/Utils';
+import AddCurrency from './components/AddCurrency';
 
 function App() {
   const [activeCurrencies, setActiveCurrencies] = useState(AVAILABLE_CURRENCIES_LIST);
@@ -21,13 +22,12 @@ function App() {
     }
   }
 
-  const currenciesHandler = (item, isAdd) => {
-    console.log('currenciesHandler', item, 'isAdd ? ', isAdd);
-    if (isAdd) {
-      setActiveCurrencies((prevState) => [...prevState, item]);
-    } else {
-      setActiveCurrencies((prevState) => [...prevState.filter(el => el !== item)]);
-    }
+  const currencyRemoveHandler = (item) => {
+    setActiveCurrencies((prevState) => [...prevState.filter(el => el !== item)]);
+  }
+
+  const currencyAddHandler = (item) => {
+    setActiveCurrencies((prevState) => prevState.find(el => el === item) ? [...prevState] : [...prevState, item]);
   }
 
   const activeRequestsHandler = (currency) => {
@@ -41,6 +41,9 @@ function App() {
   return (
     <div className="app">
       <FormBTC onAmountChange={amountHandler} onSubmit={submitHandler} />
+      <AddCurrency
+        activeCurrencies={activeCurrencies}
+        onAddCurrency={currencyAddHandler} />
       { activeCurrencies
         .map(curr =>
           <CurrencyField
@@ -49,7 +52,7 @@ function App() {
             amount={amountBTC}
             isActiveRequest={isActiveRequest(curr)}
             onRequestFinished={activeRequestsHandler}
-            onRemoveCurrency={currenciesHandler} />
+            onRemoveCurrency={currencyRemoveHandler} />
         )
       }
     </div>

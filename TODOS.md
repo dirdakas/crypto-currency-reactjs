@@ -3,6 +3,5 @@
   - Add timer to request data every 1min
   - Update amount equivalents automatically every 1min + after submit
   - BTC input field must contain only numeric values and show correct errors
-  - Dropdown menu to add missing (removed) currency field
   - Loader would be nice
   - Fix issue with multiple rendering of the listed items and logic inside of it
