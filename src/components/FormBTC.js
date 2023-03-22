@@ -3,8 +3,6 @@ import { useState } from 'react';
 import './FormBTC.css';
 
 const  FormBTC = (props) => {
-  console.log('FormBTC props', props)
-
   const [enteredAmount, setEnteredAmount] = useState('');
   const [enteredAmountTouched, setEnteredAmountTouched] = useState(false);
 
@@ -31,7 +29,7 @@ const  FormBTC = (props) => {
     }
 
     console.log('shoot get from API request. Current amount: ' + enteredAmount);
-    alert('Form was submitted: ' + enteredAmount);
+    props.onSubmit();
   }
 
   return <form onSubmit={formSubmissionHandler}>

@@ -9,25 +9,47 @@ function App() {
   const [amountBTC, setAmountBTC] = useState(0);
 
   const amountHandler = (amount) => {
-    console.log('amount from form: ', amount)
     setAmountBTC(amount ? amount : 0);
   };
+
+  const [requests, setRequests] = useState([]);
+
+  const submitHandler = () => {
+    // prevent multiple requests
+    if (requests.length === 0) {
+      setRequests([...activeCurrencies]);
+    }
+  }
 
   const currenciesHandler = (item, isAdd) => {
     console.log('currenciesHandler', item, 'isAdd ? ', isAdd);
     if (isAdd) {
-      setActiveCurrencies([...activeCurrencies, item]);
+      setActiveCurrencies((prevState) => [...prevState, item]);
     } else {
-      setActiveCurrencies([...activeCurrencies.filter(el => el !== item)]);
+      setActiveCurrencies((prevState) => [...prevState.filter(el => el !== item)]);
     }
+  }
+
+  const activeRequestsHandler = (currency) => {
+    setRequests((prevState) => [...prevState].filter(req => req !== currency));
+  }
+
+  function isActiveRequest(currency) {
+    return !!requests.find(el => el === currency);
   }
 
   return (
     <div className="app">
-      <FormBTC onAmountChange={amountHandler}/>
+      <FormBTC onAmountChange={amountHandler} onSubmit={submitHandler} />
       { activeCurrencies
-        .map(currency =>
-          <CurrencyField currency={currency} amount={amountBTC} onRemoveCurrency={currenciesHandler} />
+        .map(curr =>
+          <CurrencyField
+            currency={curr}
+            key={curr}
+            amount={amountBTC}
+            isActiveRequest={isActiveRequest(curr)}
+            onRequestFinished={activeRequestsHandler}
+            onRemoveCurrency={currenciesHandler} />
         )
       }
     </div>

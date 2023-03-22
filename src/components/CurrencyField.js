@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import './CurrencyField.css';
 import {
@@ -12,21 +12,31 @@ import {
 
 function CurrencyField(params) {
   const [data, setData] = useState();
+  var isInit = false;
 
-  useEffect(() => {
-    // @TODO: issues with cors?
-    fetch(`https://spectrocoin.com/scapi/ticker/BTC/${params.currency}`, {
-      mode: 'no-cors',
-    })
+  if (!isInit && (params.isActiveRequest || !data)) {
+    isInit = true;
+    // fetch(`https://spectrocoin.com/scapi/ticker/BTC/${params.currency}`, {
+    //   mode: 'no-cors',
+    // })
+    fetch(`fake`)
     .then(response => {
-      console.log('response: ', response);
+      return getMockedResponse(params.currency);
+    })
+    .catch(response => {
       return getMockedResponse(params.currency);
     })
     .then((data) => {
-      console.log(data);
-      setData(data);
-    })
-  });
+      // @TODO: used only for generating random price
+      const newLast = data.last + Math.floor(Math.random() * 3);
+      setData({
+        ...data,
+        last: newLast,
+        friendlyLast: `1 EUR = ${newLast} BTC`
+      });
+      params.onRequestFinished(params.currency);
+    });
+  }
 
   function getMockedResponse(currency) {
     switch(currency) {
@@ -41,6 +51,7 @@ function CurrencyField(params) {
   }
 
   function formatValue() {
+    console.log('params', params, 'data', data)
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: params.currency
