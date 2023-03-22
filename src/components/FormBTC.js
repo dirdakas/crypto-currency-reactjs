@@ -36,7 +36,7 @@ const  FormBTC = (props) => {
     <div className={amountInputClasses}>
       <label htmlFor='btcInput'>BTC amount</label>
       <input
-        type='text'
+        type='number'
         id='btcInput'
         placeholder='eg. 1'
         value={enteredAmount}
